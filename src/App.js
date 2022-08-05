@@ -1,11 +1,12 @@
 import React from "react";
 import "./styles.css";
+import ImagesContainer from './components/ImagesContainer';
 
 export default function App() {
   return (
     <div className="App">
       <h1>Hello, world!</h1>
-      <h2>Create a image searching app</h2>
+      <ImagesContainer />
       <p>
         The goal of this challenge is to build an app that can search for images
         using an API. The steps are described below:
