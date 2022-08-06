@@ -11,7 +11,8 @@ Created with CodeSandbox
 2. If you click on an image, it opens a large view of the image, and you can go back to your search results.
 
 Components:
-- SearchBar
-- ImageContainer: for fetching data from API
-- ImageGrid
-- ImageItem
+- App.js
+  - SearchBar
+  - ImageResults
+    - ImageGrid
+    - ImageItem
