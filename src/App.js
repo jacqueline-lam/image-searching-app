@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.css';
 import "./styles.css";
 import ImageSearch from './components/SearchBar';
 import ImageResults from './components/ImageResults'
