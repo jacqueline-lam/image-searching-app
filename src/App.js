@@ -21,7 +21,7 @@ export default function App() {
       .then(resp => resp.json())
       .then(imagesData => {
         if (imagesData.totalHits > 0) {
-          setImages(imagesData.totalHits);
+          setImages(imagesData.hits);
           console.log(imagesData.totalHits);
         } else {
           setImages([]);
@@ -52,7 +52,7 @@ export default function App() {
   return (
     <div className="App">
       <ImageSearch onSubmit={fetchImages} />
-      <ImageResults />
+      <ImageResults results={images} perPage={maxResults} />
     </div>
   );
 }
