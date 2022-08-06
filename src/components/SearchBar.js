@@ -28,7 +28,7 @@ export default function ImageSearch({ onSubmit }) {
         type='text'
         value={input}
         onChange={hanldeInput}
-        placeholder='Search Movie Here'
+        placeholder='Search Image Here'
       />
     </form>
   );
