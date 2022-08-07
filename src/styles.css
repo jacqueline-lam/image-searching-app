@@ -7,3 +7,24 @@ img {
   padding: 5px;
   width: 150px;
 }
+
+.fix-bar {
+  width: 100%;
+  height: 30px;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  height: 50px;
+  /* display: flex;
+  justify-content: center; */
+  background: black;
+}
+
+#search {
+  position: absolute;
+  margin: 0 auto;
+  top: 0px;
+  width: 100%;
+  height: 30px;
+  padding-top: 10px;
+}

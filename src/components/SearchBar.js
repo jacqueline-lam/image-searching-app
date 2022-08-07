@@ -22,14 +22,15 @@ export default function ImageSearch({ onSubmit }) {
   // );
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        id='image-seach-bar'
-        type='text'
-        value={input}
-        onChange={hanldeInput}
-        placeholder='Search Image Here'
-      />
-    </form>
+    <div className="fix-bar">
+      <form id="search" onSubmit={handleSubmit}>
+        <input
+          type='text'
+          value={input}
+          onChange={hanldeInput}
+          placeholder='Search Image Here'
+        />
+      </form>
+    </div>
   );
 }

@@ -7,7 +7,7 @@ export default function ImageItem({ image }) {
       <div className="image-card">
         <p>{image.tags}</p>
         <img src={image.largeImageURL} alt={image.tags} />
-        <span>Taken by: {image.user}</span>
+        {/* <span>Taken by: {image.user}</span> */}
       </div>
     </Col>
   )
