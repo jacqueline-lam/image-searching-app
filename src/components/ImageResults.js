@@ -13,7 +13,7 @@ export default function ImageResults({
     <div className="results">
       <h1>Image Results</h1>
       <Container>
-        <Row>
+        <Row xs="auto">
           {results.map((imageData) => (
             <ImageCard
               key={imageData.id}
