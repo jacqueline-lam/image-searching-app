@@ -9,8 +9,21 @@ export default function ImageResults({
   results,
   perPage,
 }) {
+  const handleScroll = (event) => {
+    console.log('scrollTop: ', event.currentTarget.scrollTop);
+    console.log('offsetHeight: ', event.currentTarget.offsetHeight);
+  }
   return (
-    <div className="results">
+    <div
+      className="results"
+      onScroll={handleScroll}
+      style={{
+        border: '3px solid black',
+        width: '100%',
+        height: '800px',
+        overflow: 'scroll',
+      }}
+    >
       <h1>Image Results</h1>
       <Container>
         <Row xs="auto">

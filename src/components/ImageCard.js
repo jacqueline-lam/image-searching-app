@@ -1,7 +1,7 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
 
-export default function ImageItem({ image }) {
+export default function ImageCard({ image }) {
   return (
     <Col>
       <div className="image-card">
