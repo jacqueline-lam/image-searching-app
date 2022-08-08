@@ -9,42 +9,87 @@ const IMAGE_API = "https://pixabay.com/api/" + `?key=${API_KEY}`;
 
 export default function App() {
   const [images, setImages] = useState([]);
-  const [maxResults, setMaxResults] = useState('20');
+  const [resultsNum, setResultsNum] = useState(20);
   const [query, setQuery] = useState('');
-
-  const imagesOnly = '&image_type=photo';
 
   const handleSearch = (input) => {
     setQuery(input.split(' ').join('+'));
-    setMaxResults('20');
+    setResultsNum(20);
   }
-
-
   // Send GET request to PixaBay API and store search results from resp in container states
   // Only fetch data when query changes
   useEffect(() => {
-    let resultsPerPage = `&per_page=${maxResults}`
-    let apiUrl = IMAGE_API.concat(`&q=${query}`, imagesOnly, resultsPerPage);
+    fetchData(query, resultsNum)
+  }, [query, resultsNum]);
+
+  const fetchData = (searchTerm, perPageRequested) => {
+    let resultsPerPage = `&per_page=${perPageRequested}`
+    const imagesOnly = '&image_type=photo';
+    let apiUrl = IMAGE_API.concat(`&q=${searchTerm}`, imagesOnly, resultsPerPage);
 
     fetch(apiUrl)
       .then(resp => resp.json())
       .then(imagesData => {
-        if (imagesData.totalHits > 0) {
-          setImages(imagesData.hits);
-          console.log(imagesData.totalHits);
+        let currResultsNum = imagesData.hits.length;
+        let maxHits = imagesData.totalHits;
+
+        // To display more more results
+        console.log('currResultsNum', currResultsNum)
+        console.log('perPageRequested', perPageRequested)
+        console.log('resultsNum', resultsNum)
+
+        if (perPageRequested > 20 && maxHits > perPageRequested) {
+          // append new data to the array instead of just replacing the array with the new data
+          // Tell state object to add entire contents of the data object to the end of the array
+          console.log('requested num per page', perPageRequested, 'imagesData hits length', imagesData.hits.length);
+          setImages([...images, imagesData.hits]);
         } else {
-          setImages([]);
+          if (maxHits > 0) {
+            setImages(imagesData.hits);
+            console.log(maxHits);
+            console.log(currResultsNum);
+          } else {
+            setImages([]);
+          }
         }
       })
       .catch(err => {
         console.error(err);
       });
-  }, [query]);
+  }
+
+
+  const infiniteScroll = () => {
+    // Check if end of doc reached?
+    if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+      console.log('reached end of results')
+      let newPerPage = resultsNum;
+      newPerPage += 20;
+      setResultsNum(newPerPage)
+      console.log(`query: ${query}, newPerPage: ${newPerPage}`)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', infiniteScroll);
+  }, []);
+
+  // useEffect(() => {
+  //   const handleScroll = event => {
+  //     console.log('window.scrollY', window.scrollY);
+  //   };
+
+  //   window.addEventListener('scroll', handleScroll);
+
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
 
   return (
     <div className="App">
       <ImageSearch onSubmit={handleSearch} />
-      <ImageResults results={images} perPage={maxResults} />
+      <ImageResults results={images} perPage={resultsNum} />
     </div>
   );
 }

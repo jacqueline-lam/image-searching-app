@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const API_KEY = process.env.REACT_APP_PIXABAY_API_KEY;
 const IMAGE_API = "https://pixabay.com/api/" + `?key=${API_KEY}`;
 
-export default function useImageSearch({ input }) {
-  // const [query, setQuery] = useState('');
+export default function useImageSearch({ input, maxResults }) {
+  const [loading, setLoading] = useSate(true);
+  const [error, setError] = useState(false);
+  const [list, setList] = useState([]);
 
+  const sendQuery = useCallback((input) => {
+
+  })
   let query = input.split(' ').join('+');
   let imagesOnly = '&image_type=photo';
   let resultsPerPage = `&per_page=${maxResults}`
@@ -24,6 +29,10 @@ export default function useImageSearch({ input }) {
     .catch(err => {
       console.error(err);
     });
+
+  useEffect(() => {
+    sendQuery(input);
+  }, [input, sendQuery, maxResults]);
 
   // Send GET request to PixaBay API and store search results from resp in container states
   // useEffect(() => {
